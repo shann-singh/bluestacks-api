@@ -2,6 +2,7 @@ const { google } = require("googleapis");
 const config = require("../utilities/config");
 const ApiError = require("../utilities/error");
 const modal = require("../modal/modal");
+const { get, set } = require("../modal/redis");
 
 class Videos {
   constructor() {
@@ -75,13 +76,27 @@ class Videos {
   async details(req, res, next) {
     try {
       let { videoId } = req.query;
-      const videoDetail = await this.youtube.videos.list({
+      const reply = await get(videoId).catch((err) => {
+        if (err) console.error(err);
+      });
+      if (reply) {
+        res.status(200).json({
+          details: JSON.parse(reply),
+          message: "fetched video details successfully",
+        });
+        return;
+      }
+      const result = await this.youtube.videos.list({
         part: "snippet, contentDetails, statistics",
         id: videoId,
-        maxResults: 1
+        maxResults: 1,
+      });
+      const videoDetail = result.data.items[0];
+      await set(videoId, JSON.stringify(videoDetail)).catch((err) => {
+        if (err) console.error(err);
       });
       res.status(200).json({
-        details: videoDetail.data.items[0],
+        details: videoDetail,
         message: "fetched video details successfully",
       });
     } catch (error) {

@@ -11,6 +11,12 @@ const config = {
     user: process.env.MS_USER,
     password: process.env.MS_PWD,
     database: process.env.MS_DB,
+  },
+  redis: {
+    host: process.env.REDIS_HOST,
+    port:process.env.REDIS_PORT,
+    password:process.env.REDIS_PASSWORD,
+    url: process.env.REDIS_URL
   }
 };
 
