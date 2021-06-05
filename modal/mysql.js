@@ -13,7 +13,6 @@ const connection = async () => {
     });
     try {
       const connection = await pool.getConnection();
-      console.log(`mysql connection established, connection ID : ${connection.threadId}`)
       return connection;
     } catch (error) {
       throw error;
