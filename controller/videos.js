@@ -60,9 +60,35 @@ class Videos {
 
   async list(req, res, next) {
     try {
-    } catch (error) {}
+      let query = `SELECT * FROM vide`;
+      const result = await modal.read(query, []);
+      const resultsArr = result[0];
+      res.status(200).json({
+        list: resultsArr,
+        message: "successfully fetch all the videos",
+      });
+    } catch (error) {
+      next(ApiError.internal("something went wrong"));
+    }
   }
-  async details(req, res, next) {}
+
+  async details(req, res, next) {
+    try {
+      let { videoId } = req.query;
+      const videoDetail = await this.youtube.videos.list({
+        part: "snippet, contentDetails, statistics",
+        id: videoId,
+        maxResults: 1
+      });
+      res.status(200).json({
+        details: videoDetail.data.items[0],
+        message: "fetched video details successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      next(ApiError.internal("something went wrong"));
+    }
+  }
 }
 
 module.exports = new Videos();

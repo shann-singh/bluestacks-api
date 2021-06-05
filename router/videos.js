@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const videosController = require("../controller/videos");
 
-router.get("/fetch-popular", (req, res, next) => {
+router.post("/fetch-popular", (req, res, next) => {
   videosController.fetch(req, res, next);
 });
 
-router.get("/videos-list", (req, res, next) => {
+router.get("/list-all", (req, res, next) => {
   videosController.list(req, res, next);
 });
 
