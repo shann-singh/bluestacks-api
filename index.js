@@ -2,8 +2,10 @@ const express = require("express");
 const config = require("./utilities/config");
 const videos = require("./router/videos");
 const errorHandler = require("./utilities/errorHandler");
+const cors = require("cors");
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
