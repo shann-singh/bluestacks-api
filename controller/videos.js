@@ -13,13 +13,13 @@ class Videos {
 
   async fetch(req, res, next) {
     try {
-      let max = 30;
+      const { maxResults } = req.body;
       const list = await this.youtube.search.list({
         regionCode: "in",
         part: "snippet",
         chart: "mostPopular",
         type: "video",
-        maxResults: max,
+        maxResults: maxResults,
       });
       if (list.data.items.length === 0) {
         //
@@ -32,11 +32,12 @@ class Videos {
             item.snippet.title,
             item.snippet.description,
             item.snippet.channelTitle,
+            item.snippet.thumbnails.default.url,
             item.snippet.publishedAt,
           ];
         });
         const query = `INSERT INTO video
-          (videoId, channelId, title, description, channelTitle, publishedAt)
+          (videoId, channelId, title, description, channelTitle, thumbnail, publishedAt)
           VALUES 
           ? ON DUPLICATE KEY UPDATE videoId=videoId;`;
         const result = await modal.insert(query, [data]);
@@ -56,6 +57,12 @@ class Videos {
       next(ApiError.internal(error.message));
     }
   }
+
+  async list(req, res, next) {
+    try {
+    } catch (error) {}
+  }
+  async details(req, res, next) {}
 }
 
 module.exports = new Videos();
