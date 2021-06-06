@@ -16,7 +16,7 @@ class Videos {
     try {
       const { maxResults } = req.body;
       const list = await this.youtube.search.list({
-        regionCode: "in",
+        regionCode: "IN",
         part: "snippet",
         chart: "mostPopular",
         type: "video",
@@ -33,7 +33,7 @@ class Videos {
             item.snippet.title,
             item.snippet.description,
             item.snippet.channelTitle,
-            item.snippet.thumbnails.default.url,
+            item.snippet.thumbnails.medium.url,
             item.snippet.publishedAt,
           ];
         });
@@ -60,9 +60,14 @@ class Videos {
   }
 
   async list(req, res, next) {
+    const { page } = req.query;
     try {
-      let query = `SELECT * FROM video ORDER BY id DESC`;
-      const result = await modal.read(query, []);
+      let query = `SELECT * FROM video 
+        ORDER BY id DESC
+        LIMIT 12
+        OFFSET ?`;
+      let data = [page * 12];
+      const result = await modal.read(query, data);
       const resultsArr = result[0];
       res.status(200).json({
         list: resultsArr,
