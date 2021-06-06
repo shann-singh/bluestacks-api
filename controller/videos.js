@@ -61,7 +61,7 @@ class Videos {
 
   async list(req, res, next) {
     try {
-      let query = `SELECT * FROM video`;
+      let query = `SELECT * FROM video ORDER BY id DESC`;
       const result = await modal.read(query, []);
       const resultsArr = result[0];
       res.status(200).json({
