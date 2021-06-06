@@ -1,4 +1,4 @@
-const {createPool} = require("mysql2/promise");
+const { createPool } = require("mysql2/promise");
 const config = require("../utilities/config");
 
 const connection = async () => {
@@ -10,6 +10,7 @@ const connection = async () => {
       user: config.mysql.user,
       password: config.mysql.password,
       database: config.mysql.database,
+      connectTimeout: 60000,
     });
     try {
       const connection = await pool.getConnection();

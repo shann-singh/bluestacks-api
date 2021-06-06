@@ -85,23 +85,38 @@ class Videos {
         if (err) console.error(err);
       });
       if (reply) {
+        const json = JSON.parse(reply);
         res.status(200).json({
-          details: JSON.parse(reply),
+          videoDetail: json.videoDetail,
+          channelDetail: json.channelDetail,
           message: "fetched video details successfully",
         });
         return;
       }
-      const result = await this.youtube.videos.list({
+      const videoResult = await this.youtube.videos.list({
         part: "snippet, contentDetails, statistics",
         id: videoId,
         maxResults: 1,
       });
-      const videoDetail = result.data.items[0];
-      await set(videoId, JSON.stringify(videoDetail)).catch((err) => {
+      const videoDetail = videoResult.data.items[0];
+      const channelResult = await this.youtube.channels.list({
+        part: "snippet, contentDetails, statistics",
+        id: videoDetail.snippet.channelId,
+        maxResults: 1,
+      });
+      const channelDetail = channelResult.data.items[0];
+      await set(
+        videoId,
+        JSON.stringify({
+          videoDetail: videoDetail,
+          channelDetail: channelDetail,
+        })
+      ).catch((err) => {
         if (err) console.error(err);
       });
       res.status(200).json({
-        details: videoDetail,
+        videoDetail: videoDetail,
+        channelDetail: channelDetail,
         message: "fetched video details successfully",
       });
     } catch (error) {
