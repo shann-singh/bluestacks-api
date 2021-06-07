@@ -29,6 +29,16 @@ docker-compose build
 docker-compose up
 ```
 
+#### Method 3: On LINUX VM
+
+```
+git clone https://github.com/shann-singh/bluestacks-api
+cd bluestacks-api
+npm install
+create .env file with necessary variable
+pm2 start index.js --name blustacks-api
+```
+
 ### Instruction 2
 
 ##### Connect with an instance of MySQL from Workbench using the username, password and mysql port details provided as environment variables. Afterwards, create a database of the same name specified in env variables and then create a table 'video' of schema specified in schema.sql file.
