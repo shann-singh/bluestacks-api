@@ -3,6 +3,7 @@ const config = require("../utilities/config");
 const ApiError = require("../utilities/error");
 const modal = require("../modal/modal");
 const { get, set } = require("../modal/redis");
+const moment = require("moment");
 
 class Videos {
   constructor() {
@@ -13,6 +14,7 @@ class Videos {
   }
 
   async fetch(req, res, next) {
+    const format = "YYYY-MM-DD HH:mm:ss";
     try {
       const { maxResults } = req.body;
       const list = await this.youtube.videos.list({
@@ -39,7 +41,7 @@ class Videos {
             item.snippet.description,
             item.snippet.channelTitle,
             item.snippet.thumbnails.medium.url,
-            item.snippet.publishedAt,
+            moment(item.snippet.publishedAt).format(format),
           ];
         });
         const query = `INSERT INTO video
