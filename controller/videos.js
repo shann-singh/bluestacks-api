@@ -16,11 +16,12 @@ class Videos {
     try {
       const { maxResults } = req.body;
       const list = await this.youtube.search.list({
-        regionCode: "IN",
         part: "snippet",
+        regionCode: "IN",
         chart: "mostPopular",
         type: "video",
         maxResults: maxResults,
+        order: "viewCount"
       });
       if (list.data.items.length === 0) {
         //
