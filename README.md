@@ -1,7 +1,6 @@
-https://secure-forest-43886.herokuapp.com/
-
 # Bluestacks API
 A simple Express API to fetch, store and play most popular YouTube videos.
+The API is currently hosted using Heroku at https://secure-forest-43886.herokuapp.com/.
 
 ## Instruction to Run the API
 ### Method 1: Locally
@@ -37,7 +36,7 @@ body : {
 
 ### 2) Get videos from DB (max 20 at a time)
 ```
-GET /videos/fetch-popular?page={0}
+GET /videos/fetch-popular?page={page_number}
 ```
 
 ### 3) Fetch a video's and its channel info from YouTube
