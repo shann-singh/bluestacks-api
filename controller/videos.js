@@ -123,7 +123,9 @@ class Videos {
         JSON.stringify({
           videoDetail: videoDetail,
           channelDetail: channelDetail,
-        })
+        }),
+        "EX",
+        10 * 60
       ).catch((err) => {
         if (err) console.error(err);
       });
