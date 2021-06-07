@@ -2,7 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config(__dirname + "/.env");
 
 const config = {
-  port: process.env.PORT,
+  port: process.env.PORT || 3001,
   googleAPIKey: process.env.GOOGLE_API_KEY,
   mysql: {
     connectionLimit: process.env.MS_CONNECTION_LIMIT,

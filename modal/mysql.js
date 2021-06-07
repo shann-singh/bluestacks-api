@@ -1,6 +1,7 @@
 const { createPool } = require("mysql2/promise");
 const config = require("../utilities/config");
 
+
 const connection = async () => {
   try {
     const pool = createPool({

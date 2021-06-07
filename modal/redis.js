@@ -3,9 +3,6 @@ const config = require("../utilities/config");
 const { promisify } = require("util");
 
 const client = redis.createClient({
-  // host: config.redis.host,
-  // port: config.redis.port,
-  // password: config.redis.password,
   url: config.redis.url,
 });
 
