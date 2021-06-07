@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const videosController = require("../controller/videos");
 
+// to fetch most popular videos from the YouTube api
+// accepts a maxResults parameter in the request body
 router.post("/fetch-popular", (req, res, next) => {
   videosController.fetch(req, res, next);
 });

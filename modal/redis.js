@@ -14,12 +14,11 @@ client.on("error", (error) => {
   console.log(error.message);
 });
 
+// promisified to make them work with async-await
 const get = promisify(client.get).bind(client);
 const set = promisify(client.set).bind(client);
-const getList = promisify(client.lrange).bind(client);
 
 module.exports = {
   get,
   set,
-  getList,
 };

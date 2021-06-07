@@ -1,6 +1,7 @@
 const connection = require("./mysql");
 
 class Modal {
+  // read query transaction
   async read(query, data) {
     const db = await connection();
     try {
@@ -11,9 +12,11 @@ class Modal {
     } catch (error) {
       await db.query("ROLLBACK");
       if (error.sqlMessage) {
-        throw { sqlMessage: error.sqlMessage };
+        let err = new Error();
+        err.sqlMessage = error.sqlMessage;
+        throw err;
       } else {
-        throw "Cannot check for avialble username. Something went wrong";
+        throw "Something went wrong";
       }
     } finally {
       db.release();
@@ -21,6 +24,7 @@ class Modal {
     }
   }
 
+  // write query transaction
   async insert(query, data) {
     const db = await connection();
     try {
@@ -36,9 +40,11 @@ class Modal {
     } catch (error) {
       await db.query("ROLLBACK");
       if (error.sqlMessage) {
-        throw { sqlMessage: error.sqlMessage };
+        let err = new Error();
+        err.sqlMessage = error.sqlMessage;
+        throw err;
       } else {
-        throw "Cannot register user. Something went wrong";
+        throw "Something went wrong";
       }
     } finally {
       db.release();

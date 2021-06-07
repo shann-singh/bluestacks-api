@@ -1,6 +1,8 @@
 const dotenv = require('dotenv')
 dotenv.config(__dirname + "/.env");
 
+// one object of collection of enviromenment variables to serve them 
+// across the api
 const config = {
   port: process.env.PORT || 3001,
   googleAPIKey: process.env.GOOGLE_API_KEY,

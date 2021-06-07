@@ -24,7 +24,7 @@ npm start
 ```
 git clone https://github.com/shann-singh/bluestacks-api
 cd bluestacks-api
-edit docker-compose.yml variable
+edit docker-compose.yml variables
 docker-compose build
 docker-compose up
 ```
@@ -51,7 +51,7 @@ body : {
 GET /videos/fetch-popular?page={page_number}
 ```
 
-### 3) Fetch a video's and its channel info from YouTube
+### 3) Fetch a video and its channel info from YouTube
 
 ```
 GET /videos/video-details?videoID={videoID}
