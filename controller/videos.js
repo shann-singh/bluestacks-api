@@ -21,7 +21,7 @@ class Videos {
         chart: "mostPopular",
         type: "video",
         maxResults: maxResults,
-        order: "viewCount"
+        // order: "viewCount"
       });
       if (list.data.items.length === 0) {
         //
