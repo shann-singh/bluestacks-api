@@ -36,7 +36,7 @@ git clone https://github.com/shann-singh/bluestacks-api
 cd bluestacks-api
 npm install
 create .env file with necessary variable
-pm2 start index.js --name blustacks-api
+pm2 start index.js --name api-name
 ```
 
 ### Instruction 2
