@@ -29,7 +29,7 @@ docker-compose up
 
 ### Instruction 2
 
-#### Connect with an instance of MySQL from Workbench using the username, password and mysql port details provided as environment variables. Afterwards, create a database of the same name specified in env variables and then create a table 'video' of schema specified in schema.sql file.
+##### Connect with an instance of MySQL from Workbench using the username, password and mysql port details provided as environment variables. Afterwards, create a database of the same name specified in env variables and then create a table 'video' of schema specified in schema.sql file.
 
 ## API Endpoints
 
