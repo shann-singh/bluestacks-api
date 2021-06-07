@@ -15,7 +15,7 @@ class Videos {
   async fetch(req, res, next) {
     try {
       const { maxResults } = req.body;
-      const list = await this.youtube.search.list({
+      const list = await this.youtube.videos.list({
         part: "snippet",
         regionCode: "IN",
         chart: "mostPopular",
