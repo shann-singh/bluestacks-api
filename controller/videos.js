@@ -21,15 +21,19 @@ class Videos {
         chart: "mostPopular",
         type: "video",
         maxResults: maxResults,
-        // order: "viewCount"
       });
       if (list.data.items.length === 0) {
-        //
+        res.status(200).json({
+          newEntries: 0,
+          duplicates: 0,
+          message: "No videos fetched from YouTube",
+        });
+        return;
       } else {
         const videosList = list.data.items;
         const data = videosList.map((item, index) => {
           return [
-            item.id.videoId,
+            item.id,
             item.snippet.channelId,
             item.snippet.title,
             item.snippet.description,
@@ -41,7 +45,13 @@ class Videos {
         const query = `INSERT INTO video
           (videoId, channelId, title, description, channelTitle, thumbnail, publishedAt)
           VALUES 
-          ? ON DUPLICATE KEY UPDATE videoId=videoId;`;
+          ? ON DUPLICATE KEY UPDATE videoId=VALUES(videoId),
+          channelId=VALUES(channelId),
+          title=VALUES(title),
+          description=VALUES(description),
+          channelTitle=VALUES(channelTitle),
+          thumbnail=VALUES(thumbnail),
+          publishedAt=VALUES(publishedAt);`;
         const result = await modal.insert(query, [data]);
         if (!result) {
           ApiError.internal("Cannot update DB with updated videos list");
@@ -65,9 +75,9 @@ class Videos {
     try {
       let query = `SELECT * FROM video 
         ORDER BY id DESC
-        LIMIT 12
+        LIMIT 20
         OFFSET ?`;
-      let data = [page * 12];
+      let data = [page * 20];
       const result = await modal.read(query, data);
       const resultsArr = result[0];
       res.status(200).json({
