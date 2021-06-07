@@ -43,3 +43,20 @@ GET /videos/fetch-popular?page={page_number}
 ```
 GET /videos/video-details?videoID={videoID}
 ```
+
+## Sample .env file to setup before running API
+```
+PORT = port_number
+GOOGLE_API_KEY=your_google_api_key
+
+# MYSQL
+MS_CONNECTION_LIMIT=10
+MS_HOST=localhost
+MS_PORT=3306
+MS_USER=root
+MS_PWD=your_mysql_password
+MS_DB=db_name
+
+# REDIS
+REDIS_URL=redis://localhost:6379
+```
