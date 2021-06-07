@@ -8,7 +8,6 @@ A simple Express API to fetch, store and play most popular YouTube videos.
 
 ##### Clone the repository, install node packages
 ```
-//on local
 git clone https://github.com/shann-singh/bluestacks-api
 cd bluestacks-api
 create DB and table
@@ -23,4 +22,25 @@ cd bluestacks-api
 create DB and table
 docker-compose build
 docker-compose up
+```
+
+## API Endpoints
+
+### 1) Fetch most popular videos from Youtube and save them into DB
+```
+POST /videos/fetch-popular
+
+body : { 
+          "maxResults": {10 to 50} 
+       }
+```
+
+### 2) Get videos from DB (max 20 at a time)
+```
+GET /videos/fetch-popular?page={0}
+```
+
+### 3) Fetch a video's and its channel info from YouTube
+```
+GET /videos/video-details?videoID={videoID}
 ```
