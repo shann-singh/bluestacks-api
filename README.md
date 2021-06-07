@@ -15,6 +15,7 @@ The API is currently hosted using Heroku at https://secure-forest-43886.herokuap
 git clone https://github.com/shann-singh/bluestacks-api
 cd bluestacks-api
 npm install
+create .env file with necessary variable
 npm start
 ```
 
@@ -23,6 +24,7 @@ npm start
 ```
 git clone https://github.com/shann-singh/bluestacks-api
 cd bluestacks-api
+edit docker-compose.yml variable
 docker-compose build
 docker-compose up
 ```
