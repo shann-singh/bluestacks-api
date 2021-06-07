@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  api:
+    container_name: bluestacks-api
+    restart: always
+    build: ./
+    environment:
+      MS_CONNECTION_LIMIT: 10
+      MS_HOST: mysql-backend
+      MS_PORT: 3306
+      MS_USER: root
+      MS_PWD: your_password
+      MS_DB: your_db_name
+      REDIS_URL: redis://redis-backend:6379
+      GOOGLE_API_KEY: your_google_api_key
+    expose: 
+      - 3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    container_name: mysql-backend
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: your_db_name
+      MYSQL_USER: user
+      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: your_password
+    expose:
+      - "3300"
+    ports:
+      - "3300:3306"
+    volumes:
+      - db-config:/etc/mysql
+      - db-data:/var/lib/mysql
+      - ./db/backup/files/:/data_backup/data
+  redis:
+    container_name: redis-backend
+    image: redis:latest
+    expose:
+      - 7000
+    ports: 
+      - "7000:6379"
+
+volumes:
+  db-config:
+  db-data:
+
